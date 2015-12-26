@@ -1,0 +1,31 @@
+- name: Test Playbook
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Create service
+      ecs_service:
+        name: justin-test
+        cluster: test
+        operation: create
+        task_definition: simpleapp
+        desired_count: 1
+      register: result
+    - debug: msg={{ result }}
+    - name: Update service
+      ecs_service:
+        name: justin-test
+        cluster: test
+        operation: update
+        task_definition: simpleapp
+        desired_count: 2
+        min_healthy_percent: 100
+      register: update_result
+    - debug: msg={{ update_result }}
+    # - name: Delete service
+    #   ecs_service:
+    #     name: justin-test
+    #     cluster: test
+    #     operation: delete
+    #   register: delete_result
+    # - debug: msg={{ delete_result }}
