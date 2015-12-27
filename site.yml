@@ -9,6 +9,10 @@
         cluster: test
         operation: create
         task_definition: simpleapp
+        role: ecsServiceRole
+        load_balancer: test-elb
+        container_name: simple-app
+        container_port: 80
         desired_count: 1
       register: result
     - debug: msg={{ result }}
@@ -20,12 +24,13 @@
         task_definition: simpleapp
         desired_count: 2
         min_healthy_percent: 100
+        max_percent: 200
       register: update_result
     - debug: msg={{ update_result }}
-    # - name: Delete service
-    #   ecs_service:
-    #     name: justin-test
-    #     cluster: test
-    #     operation: delete
-    #   register: delete_result
-    # - debug: msg={{ delete_result }}
+    - name: Delete service
+      ecs_service:
+        name: justin-test
+        cluster: test
+        operation: delete
+      register: delete_result
+    - debug: msg={{ delete_result }}
