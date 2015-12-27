@@ -21,7 +21,7 @@ short_description: create, update or delete a service in ecs
 description:
     - Creates, updates or deletes ecs services.
 version_added: "2.0"
-author: Justin Menga(justin.menga@gmail.com)
+author: Justin Menga(@mixja)
 options:
     name: 
         description:
